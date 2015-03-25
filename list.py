@@ -35,6 +35,7 @@ try:
     message = api.list(cat, ctr, nb_results, offset)
 except:
     print "Error: HTTP 500 - one of the provided parameters is invalid"
+    sys.exit(1)
 
 if (ctr is None):
     print SEPARATOR.join(["Subcategory ID", "Name"])
