@@ -12,7 +12,8 @@ from google.protobuf import text_format
 from google.protobuf.message import Message, DecodeError
 
 import googleplay_pb2
-import config
+import settings
+# import config
 
 class LoginError(Exception):
     def __init__(self, value):
@@ -47,9 +48,9 @@ class GooglePlayAPI(object):
     def __init__(self, androidId=None, lang=None, debug=False): # you must use a device-associated androidId value
         self.preFetch = {}
         if androidId == None:
-            androidId = config.ANDROID_ID
+            androidId = settings.ANDROID_ID
         if lang == None:
-            lang = config.LANG
+            lang = settings.LANG
         self.androidId = androidId
         self.lang = lang
         self.debug = debug
@@ -115,9 +116,9 @@ class GooglePlayAPI(object):
                                 "androidId": self.androidId,
                                 "app": "com.android.vending",
                                 #"client_sig": self.client_sig,
-                                "device_country": "fr",
-                                "operatorCountry": "fr",
-                                "lang": "fr",
+                                "device_country": "us",
+                                "operatorCountry": "us",
+                                "lang": "us",
                                 "sdk_version": "16"}
             headers = {
                 "Accept-Encoding": "",

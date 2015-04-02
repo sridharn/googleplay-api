@@ -1,10 +1,13 @@
 # separator used by search.py, categories.py, ...
 SEPARATOR = ";"
+import settings
 
-LANG            = "en_US" # can be en_US, fr_FR, ...
-ANDROID_ID      = "36e57258243cf183"
-GOOGLE_LOGIN    = 'no-reply@thinkgaming.com'
-GOOGLE_PASSWORD = 'th1nk1ng'
+LANG            = settings.LANG #"en_US" # can be en_US, fr_FR, ...
+ANDROID_ID      = settings.ANDROID_ID #"38c6523ac43ef9e1"
+# GOOGLE_LOGIN    = 'no-reply@thinkgaming.com'
+GOOGLE_LOGIN    = 'tggreatbritain@thinkgaming.com'
+
+GOOGLE_PASSWORD = 'th1nking'
 AUTH_TOKEN      = None # "yyyyyyyyy"
 
 # force the user to edit this file
