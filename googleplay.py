@@ -56,11 +56,11 @@ class GooglePlayAPI(object):
         self.androidId = androidId
         self.lang = lang
         self.debug = debug
-        self.proxy_dict = {
-                "http"  : "http://81.137.100.158:8080",
-                "https" : "http://81.137.100.158:8080",
-                "ftp"   : "http://81.137.100.158:8080"
-                }
+        # self.proxy_dict = {
+        #         "http"  : "http://81.137.100.158:8080",
+        #         "https" : "http://81.137.100.158:8080",
+        #         "ftp"   : "http://81.137.100.158:8080"
+        #         }
 
     def toDict(self, protoObj):
         """Converts the (protobuf) result from an API call into a dict, for
@@ -101,7 +101,7 @@ class GooglePlayAPI(object):
     def setAuthSubToken(self, authSubToken):
         self.authSubToken = authSubToken
 
-        # put your auth token in config.py to avoid multiple login requests
+        # put your auth token in config.py to avoid multiple logins
         if self.debug:
             print "authSubToken: " + authSubToken
 
