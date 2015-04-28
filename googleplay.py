@@ -44,6 +44,8 @@ class GooglePlayAPI(object):
     ACCOUNT_TYPE_HOSTED = "HOSTED"
     ACCOUNT_TYPE_HOSTED_OR_GOOGLE = "HOSTED_OR_GOOGLE"
     authSubToken = None
+    # HTTP_PROXY = "http://81.137.100.158"
+
 
     def __init__(self, androidId=None, lang=None, debug=False): # you must use a device-associated androidId value
         self.preFetch = {}
@@ -54,6 +56,11 @@ class GooglePlayAPI(object):
         self.androidId = androidId
         self.lang = lang
         self.debug = debug
+        self.proxy_dict = {
+                "http"  : "http://81.137.100.158:8080",
+                "https" : "http://81.137.100.158:8080",
+                "ftp"   : "http://81.137.100.158:8080"
+                }
 
     def toDict(self, protoObj):
         """Converts the (protobuf) result from an API call into a dict, for
@@ -98,7 +105,7 @@ class GooglePlayAPI(object):
         if self.debug:
             print "authSubToken: " + authSubToken
 
-    def login(self, email=None, password=None, authSubToken=None):
+    def login(self, email=None, password=None, authSubToken=None, proxy=None):
         """Login to your Google Account. You must provide either:
         - an email and password
         - a valid Google authSubToken"""
@@ -123,7 +130,8 @@ class GooglePlayAPI(object):
             headers = {
                 "Accept-Encoding": "",
             }
-            response = requests.post(self.URL_LOGIN, data=params, headers=headers, verify=False)
+            self.proxy_dict = proxy
+            response = requests.post(self.URL_LOGIN, data=params, headers=headers, proxies=proxy, verify=False)
             data = response.text.split()
             params = {}
             for d in data:
@@ -159,9 +167,9 @@ class GooglePlayAPI(object):
 
             url = "https://android.clients.google.com/fdfe/%s" % path
             if datapost is not None:
-                response = requests.post(url, data=datapost, headers=headers, verify=False)
+                response = requests.post(url, data=datapost, headers=headers, proxies=self.proxy_dict, verify=False)
             else:
-                response = requests.get(url, headers=headers, verify=False)
+                response = requests.get(url, headers=headers, proxies=self.proxy_dict, verify=False)
             data = response.content
 
         '''
@@ -276,6 +284,6 @@ class GooglePlayAPI(object):
                    "Accept-Encoding": "",
                   }
 
-        response = requests.get(url, headers=headers, cookies=cookies, verify=False)
+        response = requests.get(url, headers=headers, cookies=cookies, proxies=self.proxy_dict, verify=False)
         return response.content
 
