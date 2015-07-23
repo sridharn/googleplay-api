@@ -156,7 +156,7 @@ class GooglePlayAPI(object):
                                     "X-DFE-Device-Id": self.androidId,
                                     "X-DFE-Client-Id": "am-android-google",
                                     #"X-DFE-Logging-Id": self.loggingId2, # Deprecated?
-                                    # "User-Agent": "Android-Finsky/3.10.14 (api=3,versionCode=8016014,sdk=22,device=GT-I9300,hardware=aries,product=GT-I9300)",
+                                    # "User-Agent": "Android-Finsky/4.4.3 (api=3,versionCode=8016014,sdk=22,device=GT-I9300,hardware=aries,product=GT-I9300)",
                                     "User-Agent": "Android-Finsky/4.4.3 (api=3,versionCode=8016014,sdk=22,device=hammerhead,hardware=hammerhead,product=hammerhead)",
                                     # "User-Agent": "Android-Finsky/3.7.13 (api=3,versionCode=8013013,sdk=22,device=crespo,hardware=herring,product=soju)",
                                     "X-DFE-SmallestScreenWidthDp": "335",
@@ -173,7 +173,7 @@ class GooglePlayAPI(object):
             else:
                 response = requests.get(url, headers=headers, proxies=self.proxy_dict, verify=False)
             data = response.content
-
+            # print data
         '''
         data = StringIO.StringIO(data)
         gzipper = gzip.GzipFile(fileobj=data)
