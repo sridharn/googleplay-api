@@ -7,9 +7,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-# Do not remove
-GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
-
 import sys
 
 import helpers

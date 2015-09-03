@@ -7,6 +7,7 @@ from __future__ import unicode_literals
 
 import os
 import io
+import sys
 import logging
 
 config = None
@@ -33,6 +34,12 @@ def read_config(config_file='config.py'):
         exec(code, None, config)
 
     return config
+
+def str_compat(text):
+    if sys.version_info[0] >= 3: # python 3
+        return text
+    else: # Python 2
+        return text.encode('utf8')
 
 
 def sizeof_fmt(num):
@@ -62,11 +69,9 @@ def print_result_line(c):
     if config == None:
         read_config()
 
-    #c.offer[0].micros/1000000.0
-    #c.offer[0].currencyCode
-    l = [ c.title,
+    l = [ str_compat(c.title),
                 c.docid,
-                c.creator,
+                str_compat(c.creator),
                 len(c.annotations.badgeForCreator), # Is Super Developer?
                 c.offer[0].formattedAmount,
                 c.offer[0].offerType,

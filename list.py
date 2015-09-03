@@ -46,9 +46,9 @@ except:
     sys.exit(1)
 
 if (ctr is None):
-    print(config['SEPARATOR'].join(["Subcategory ID", "Name"]))
+    print("Subcategory ID", "Name", sep=config['SEPARATOR'])
     for doc in message.doc:
-        print(config['SEPARATOR'].join([doc.docid.encode('utf8'), doc.title.encode('utf8')]))
+        print(helpers.str_compat(doc.docid), helpers.str_compat(doc.title), sep=config['SEPARATOR'])
 else:
     print_header_line()
     doc = message.doc[0]

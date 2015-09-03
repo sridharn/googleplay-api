@@ -37,7 +37,8 @@ api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'
 # Only one app
 if (len(packagenames) == 1):
     response = api.details(packagenames[0])
-    print("\n".join(i.encode('utf8') for i in response.docV2.details.appDetails.permission))
+    for item in response.docV2.details.appDetails.permission:
+        print(helpers.str_compat(item))
 
 else: # More than one app
     response = api.bulkDetails(packagenames)
@@ -45,6 +46,7 @@ else: # More than one app
     for entry in response.entry:
         if (not not entry.ListFields()): # if the entry is not empty
             print(entry.doc.docid + ":")
-            print("\n".join("    "+i.encode('utf8') for i in entry.doc.details.appDetails.permission))
+            for item in entry.doc.details.appDetails.permission:
+                print("    " + helpers.str_compat(item))
             print()
 
