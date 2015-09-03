@@ -7,9 +7,6 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-# Do not remove
-GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
-
 import sys
 from google.protobuf import text_format
 
@@ -20,7 +17,7 @@ except ImportError:
     # Python 3
     import urllib.parse as urlparse
 
-from config import *
+import helpers
 from googleplay import GooglePlayAPI
 
 if (len(sys.argv) < 2):
@@ -30,8 +27,12 @@ if (len(sys.argv) < 2):
 
 packagenames = sys.argv[1:]
 
-api = GooglePlayAPI(ANDROID_ID)
-api.login(GOOGLE_LOGIN, GOOGLE_PASSWORD, AUTH_TOKEN)
+# read config from config.py
+config = helpers.read_config()
+
+# connect to GooglePlayStore
+api = GooglePlayAPI(config['ANDROID_ID'])
+api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'])
 
 # Only one app
 if (len(packagenames) == 1):

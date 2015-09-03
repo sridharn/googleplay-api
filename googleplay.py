@@ -17,7 +17,6 @@ from google.protobuf import text_format
 from google.protobuf.message import Message, DecodeError
 
 import googleplay_pb2
-import config
 
 class LoginError(Exception):
     def __init__(self, value):
@@ -53,10 +52,10 @@ class GooglePlayAPI(object):
 
     def __init__(self, androidId=None, lang=None, debug=False): # you must use a device-associated androidId value
         self.preFetch = {}
-        if androidId == None:
-            androidId = config.ANDROID_ID
-        if lang == None:
-            lang = config.LANG
+        #if androidId == None:
+        #    androidId = config.ANDROID_ID
+        #if lang == None:
+        #    lang = config.LANG
         self.androidId = androidId
         self.lang = lang
         self.debug = debug
@@ -255,7 +254,7 @@ class GooglePlayAPI(object):
             path += "&o=%s" % requests.utils.quote(offset)
         message = self.executeRequestApi2(path)
         return message.payload.listResponse
-    
+
     def reviews(self, packageName, filterByDevice=False, sort=2, nb_results=None, offset=None):
         """Browse reviews.
         packageName is the app unique ID.
@@ -269,7 +268,7 @@ class GooglePlayAPI(object):
             path += "&dfil=1"
         message = self.executeRequestApi2(path)
         return message.payload.reviewResponse
-    
+
     def download(self, packageName, versionCode, offerType=1):
         """Download an app and return its raw data (APK file).
 

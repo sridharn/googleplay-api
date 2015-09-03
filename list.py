@@ -7,12 +7,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-# Do not remove
-GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
-
 import sys
 
-from config import *
+import helpers
 from googleplay import GooglePlayAPI
 from helpers import sizeof_fmt, print_header_line, print_result_line
 
@@ -35,8 +32,13 @@ if (len(sys.argv) >= 4):
 if (len(sys.argv) == 5):
     offset = sys.argv[4]
 
-api = GooglePlayAPI(ANDROID_ID)
-api.login(GOOGLE_LOGIN, GOOGLE_PASSWORD, AUTH_TOKEN)
+# read config from config.py
+config = helpers.read_config()
+
+# connect to GooglePlayStore
+api = GooglePlayAPI(config['ANDROID_ID'])
+api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'])
+
 try:
     message = api.list(cat, ctr, nb_results, offset)
 except:
@@ -44,9 +46,9 @@ except:
     sys.exit(1)
 
 if (ctr is None):
-    print(SEPARATOR.join(["Subcategory ID", "Name"]))
+    print(config['SEPARATOR'].join(["Subcategory ID", "Name"]))
     for doc in message.doc:
-        print(SEPARATOR.join([doc.docid.encode('utf8'), doc.title.encode('utf8')]))
+        print(config['SEPARATOR'].join([doc.docid.encode('utf8'), doc.title.encode('utf8')]))
 else:
     print_header_line()
     doc = message.doc[0]

@@ -12,9 +12,8 @@ GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
 
 import sys
 
-from config import *
+import helpers
 from googleplay import GooglePlayAPI
-from helpers import sizeof_fmt, print_header_line, print_result_line
 
 if (len(sys.argv) < 2):
     print("Usage: %s request [nb_results] [offset]" % sys.argv[0])
@@ -32,8 +31,12 @@ if (len(sys.argv) >= 3):
 if (len(sys.argv) >= 4):
     offset = int(sys.argv[3])
 
-api = GooglePlayAPI(ANDROID_ID)
-api.login(GOOGLE_LOGIN, GOOGLE_PASSWORD, AUTH_TOKEN)
+# read config from config.py
+config = helpers.read_config()
+
+# connect to GooglePlayStore
+api = GooglePlayAPI(config['ANDROID_ID'])
+api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'])
 
 try:
     message = api.search(request, nb_res, offset)
@@ -41,8 +44,8 @@ except:
     print("Error: something went wrong. Maybe the nb_res you specified was too big?")
     sys.exit(1)
 
-print_header_line()
+helpers.print_header_line()
 doc = message.doc[0]
 for c in doc.child:
-    print_result_line(c)
+    helpers.print_result_line(c)
 

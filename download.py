@@ -7,13 +7,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-# Do not remove
-GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
-
 import sys
 import io
 
-import config
 from googleplay import GooglePlayAPI
 from helpers import sizeof_fmt
 
@@ -29,9 +25,12 @@ filename = None
 if (len(sys.argv) == 3):
     filename = sys.argv[2]
 
-# Connect
-api = GooglePlayAPI(config.ANDROID_ID)
-api.login(config.GOOGLE_LOGIN, config.GOOGLE_PASSWORD, config.AUTH_TOKEN)
+# read config from config.py
+config = helpers.read_config()
+
+# connect to GooglePlayStore
+api = GooglePlayAPI(config['ANDROID_ID'])
+api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'])
 
 # Get the version code and the offer type from the app details
 m = api.details(packagename)
