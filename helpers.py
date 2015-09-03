@@ -1,3 +1,10 @@
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 from config import SEPARATOR
 
 def sizeof_fmt(num):
@@ -18,7 +25,7 @@ def print_header_line():
                 "Rating",
                 "Num Downloads",
              ]
-    print SEPARATOR.join(l)
+    print(*l, sep=SEPARATOR)
 
 def print_result_line(c):
     #c.offer[0].micros/1000000.0
@@ -33,5 +40,5 @@ def print_result_line(c):
                 sizeof_fmt(c.details.appDetails.installationSize),
                 "%.2f" % c.aggregateRating.starRating,
                 c.details.appDetails.numDownloads]
-    print SEPARATOR.join(unicode(i).encode('utf8') for i in l)
+    print(*l, sep=SEPARATOR)
 

@@ -1,9 +1,14 @@
 #!/usr/bin/python
 
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+
 import base64
 import gzip
-import pprint
-import StringIO
 import requests
 
 from google.protobuf import descriptor
@@ -12,8 +17,7 @@ from google.protobuf import text_format
 from google.protobuf.message import Message, DecodeError
 
 import googleplay_pb2
-import settings
-# import config
+import config
 
 class LoginError(Exception):
     def __init__(self, value):
@@ -50,9 +54,9 @@ class GooglePlayAPI(object):
     def __init__(self, androidId=None, lang=None, debug=False): # you must use a device-associated androidId value
         self.preFetch = {}
         if androidId == None:
-            androidId = settings.ANDROID_ID
+            androidId = config.ANDROID_ID
         if lang == None:
-            lang = settings.LANG
+            lang = config.LANG
         self.androidId = androidId
         self.lang = lang
         self.debug = debug
@@ -103,7 +107,7 @@ class GooglePlayAPI(object):
 
         # put your auth token in config.py to avoid multiple logins
         if self.debug:
-            print "authSubToken: " + authSubToken
+            print("authSubToken: %s" % authSubToken)
 
     def login(self, email=None, password=None, authSubToken=None, proxy=None):
         """Login to your Google Account. You must provide either:
@@ -111,6 +115,8 @@ class GooglePlayAPI(object):
         - a valid Google authSubToken"""
         if (authSubToken is not None):
             self.setAuthSubToken(authSubToken)
+            self.proxy_dict = proxy
+            # TODO: not really implemented yet
         else:
             if (email is None or password is None):
                 raise Exception("You should provide at least authSubToken or (email and password)")
@@ -131,7 +137,7 @@ class GooglePlayAPI(object):
                 "Accept-Encoding": "",
             }
             self.proxy_dict = proxy
-            response = requests.post(self.URL_LOGIN, data=params, headers=headers, proxies=proxy, verify=False)
+            response = requests.post(self.URL_LOGIN, data=params, headers=headers, proxies=proxy, verify=True)
             data = response.text.split()
             params = {}
             for d in data:
@@ -139,6 +145,7 @@ class GooglePlayAPI(object):
                 k, v = d.split("=")
                 params[k.strip().lower()] = v.strip()
             if "auth" in params:
+                #print("Auth-Token found: %s" % params["auth"])
                 self.setAuthSubToken(params["auth"])
             elif "error" in params:
                 raise LoginError("server says: " + params["error"])
@@ -169,11 +176,11 @@ class GooglePlayAPI(object):
 
             url = "https://android.clients.google.com/fdfe/%s" % path
             if datapost is not None:
-                response = requests.post(url, data=datapost, headers=headers, proxies=self.proxy_dict, verify=False)
+                response = requests.post(url, data=datapost, headers=headers, proxies=self.proxy_dict, verify=True)
             else:
-                response = requests.get(url, headers=headers, proxies=self.proxy_dict, verify=False)
+                response = requests.get(url, headers=headers, proxies=self.proxy_dict, verify=True)
             data = response.content
-            # print data
+            #print(data)
         '''
         data = StringIO.StringIO(data)
         gzipper = gzip.GzipFile(fileobj=data)
@@ -275,6 +282,8 @@ class GooglePlayAPI(object):
         message = self.executeRequestApi2(path, data)
 
         url = message.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadUrl
+        #print(message)
+        #print(message.payload)
         cookie = message.payload.buyResponse.purchaseStatusResponse.appDeliveryData.downloadAuthCookie[0]
 
         cookies = {
@@ -286,6 +295,6 @@ class GooglePlayAPI(object):
                    "Accept-Encoding": "",
                   }
 
-        response = requests.get(url, headers=headers, cookies=cookies, proxies=self.proxy_dict, verify=False)
+        response = requests.get(url, headers=headers, cookies=cookies, proxies=self.proxy_dict, verify=True)
         return response.content
 
