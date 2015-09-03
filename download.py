@@ -10,8 +10,8 @@ from __future__ import unicode_literals
 import sys
 import io
 
+import helpers
 from googleplay import GooglePlayAPI
-from helpers import sizeof_fmt
 
 if (len(sys.argv) < 2):
     print("Usage: %s packagename [filename]")
@@ -26,7 +26,7 @@ if (len(sys.argv) == 3):
     filename = sys.argv[2]
 
 # read config from config.py
-config = helpers.read_config()
+config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
 api = GooglePlayAPI(config['ANDROID_ID'])
@@ -42,7 +42,7 @@ if filename == None:
     filename = "%s_%s.apk" % (packagename, vc)
 
 # Download
-print("Downloading to file %s with size %s..." % (filename, sizeof_fmt(doc.details.appDetails.installationSize)))
+print("Downloading to file %s with size %s..." % (filename, helpers.sizeof_fmt(doc.details.appDetails.installationSize)))
 data = api.download(packagename, vc, ot)
 io.open(filename, "wb").write(data)
 print("Done")

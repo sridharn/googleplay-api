@@ -29,7 +29,7 @@ if (len(sys.argv) >= 4):
     offset = int(sys.argv[3])
 
 # read config from config.py
-config = helpers.read_config()
+config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
 api = GooglePlayAPI(config['ANDROID_ID'])

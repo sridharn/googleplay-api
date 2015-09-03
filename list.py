@@ -11,7 +11,6 @@ import sys
 
 import helpers
 from googleplay import GooglePlayAPI
-from helpers import sizeof_fmt, print_header_line, print_result_line
 
 if (len(sys.argv) < 2):
     print("Usage: %s category [subcategory] [nb_results] [offset]" % sys.argv[0])
@@ -33,7 +32,7 @@ if (len(sys.argv) == 5):
     offset = sys.argv[4]
 
 # read config from config.py
-config = helpers.read_config()
+config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
 api = GooglePlayAPI(config['ANDROID_ID'])
@@ -50,8 +49,8 @@ if (ctr is None):
     for doc in message.doc:
         print(helpers.str_compat(doc.docid), helpers.str_compat(doc.title), sep=config['SEPARATOR'])
 else:
-    print_header_line()
+    helpers.print_header_line()
     doc = message.doc[0]
     for c in doc.child:
-        print_result_line(c)
+        helpers.print_result_line(c)
 

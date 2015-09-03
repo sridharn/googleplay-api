@@ -28,7 +28,7 @@ if (len(sys.argv) < 2):
 packagenames = sys.argv[1:]
 
 # read config from config.py
-config = helpers.read_config()
+config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
 api = GooglePlayAPI(config['ANDROID_ID'])

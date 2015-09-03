@@ -17,20 +17,19 @@ except ImportError:
     # Python 3
     import urllib.parse as urlparse
 
-import helpers
 from googleplay import GooglePlayAPI
 
 # read config from config.py
-config = helpers.read_config()
+config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
 api = GooglePlayAPI(config['ANDROID_ID'])
 api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'])
 response = api.browse()
 
-print(config['SEPARATOR'].join(["ID", "Name"]))
+print("ID", "Name", sep=config['SEPARATOR'])
 for c in response.category:
     category = urlparse.parse_qs(c.dataUrl)['cat'][0]
     name = c.name
-    print(config['SEPARATOR'].join([category, name]))
+    print(category, name, sep=config['SEPARATOR'])
 

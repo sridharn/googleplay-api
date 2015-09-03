@@ -7,6 +7,9 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+import os
+import io
+import logging
 import base64
 import gzip
 import requests
@@ -29,6 +32,8 @@ class RequestError(Exception):
         self.value = value
     def __str__(self):
         return repr(self.value)
+
+config = None
 
 class GooglePlayAPI(object):
     """Google Play Unofficial API Class
@@ -64,6 +69,30 @@ class GooglePlayAPI(object):
         #         "https" : "http://81.137.100.158:8080",
         #         "ftp"   : "http://81.137.100.158:8080"
         #         }
+
+    @staticmethod
+    def read_config(config_file='config.py'):
+        """
+        Read the repository config
+
+        The config is read from config_file, which is in the current directory.
+        """
+        global config
+
+        if config is not None:
+            return config
+        if not os.path.isfile(config_file):
+            logging.critical("Missing config file.")
+            sys.exit(2)
+
+        config = dict()
+
+        logging.debug("Reading %s" % config_file)
+        with io.open("config.py", "rb") as f:
+            code = compile(f.read(), "config.py", 'exec')
+            exec(code, None, config)
+
+        return config
 
     def toDict(self, protoObj):
         """Converts the (protobuf) result from an API call into a dict, for

@@ -29,7 +29,7 @@ except ImportError:
 from googleplay import GooglePlayAPI
 
 # read config from config.py
-config = helpers.read_config()
+config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
 api = GooglePlayAPI(config['ANDROID_ID'])
