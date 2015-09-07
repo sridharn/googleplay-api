@@ -18,7 +18,7 @@ except ImportError:
     import urllib.parse as urlparse
 
 import helpers
-from googleplay import GooglePlayAPI
+from googleplay_api.googleplay import GooglePlayAPI
 
 if (len(sys.argv) < 2):
     print("Usage: %s packagename1 [packagename2 [...]]" % sys.argv[0])

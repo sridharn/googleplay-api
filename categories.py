@@ -17,7 +17,7 @@ except ImportError:
     # Python 3
     import urllib.parse as urlparse
 
-from googleplay import GooglePlayAPI
+from googleplay_api.googleplay import GooglePlayAPI
 
 # read config from config.py
 config = GooglePlayAPI.read_config()

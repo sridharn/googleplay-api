@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 import sys
 
 import helpers
-from googleplay import GooglePlayAPI
+from googleplay_api.googleplay import GooglePlayAPI
 
 if (len(sys.argv) < 2):
     print("Usage: %s category [subcategory] [nb_results] [offset]" % sys.argv[0])

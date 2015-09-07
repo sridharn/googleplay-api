@@ -11,7 +11,7 @@ import sys
 import io
 
 import helpers
-from googleplay import GooglePlayAPI
+from googleplay_api.googleplay import GooglePlayAPI
 
 if (len(sys.argv) < 2):
     print("Usage: %s packagename [filename]")

@@ -7,7 +7,7 @@ from __future__ import unicode_literals
 
 import sys
 
-from googleplay import GooglePlayAPI
+from googleplay_api.googleplay import GooglePlayAPI
 
 config = None
 
