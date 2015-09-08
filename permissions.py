@@ -8,7 +8,6 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import sys
-from google.protobuf import text_format
 
 try:
     # Python 2

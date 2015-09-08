@@ -15,7 +15,6 @@ Feel free to use help(api).
 
 import sys
 import code
-from google.protobuf import text_format
 
 import helpers
 
