@@ -14,6 +14,8 @@ This library is inspired by those projects, working with the old version of the 
 * [Python 2.7+ or Python 3.4+](http://www.python.org)
 * [Protocol Buffers](http://code.google.com/p/protobuf/)
 
+Note: for Python 3.4 support protobuf > 3.0 is required. AUR: [python-protobuf](https://aur4.archlinux.org/packages/python-protobuf/)
+
 ## Requirements
 You must edit `config.py` before using the provided scripts (`search.py`, `download.py`, `apishell.py`, etc.). First, you need to provide your phone's `androidID`:
 
