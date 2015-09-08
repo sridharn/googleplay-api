@@ -25,6 +25,23 @@ To get your `androidID`, use `*#*#8255#*#*` on your phone to start *Gtalk Monito
 
 In order to authenticate to Google Play, you also need to provide either your Google login and password, or a valid subAuthToken.
 
+## Installation
+### pip
+googleplay-api is available over pip
+```
+pip install googleplay-api
+```
+
+### local testing
+To locally test this repo use virtualenv
+```
+git clone https://github.com/NeroBurner/googleplay-api
+cd googleplay-api
+virtualenv venv
+source venv/bin/activate
+pip install -e .
+```
+
 ## Usage
 
 ### Searching
@@ -177,9 +194,11 @@ All results returned by methods such as `search()`, `details()`, ..., are Protob
 
 ### Using the API as a module in another project
 
-You only need `googleplay.py` and `googleplay_pb2.py`. All other scripts are just front-ends.
+Install via pip.
 
-    >>> from googleplay import GooglePlayAPI
+Or copy the package `googleplay_api` with the files `googleplay.py` and `googleplay_pb2.py`. All other scripts are just front-ends.
+
+    >>> from googleplay_api.googleplay import GooglePlayAPI
     >>> help(GooglePlayAPI)
 
 What else?
