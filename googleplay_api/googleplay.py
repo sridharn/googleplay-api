@@ -71,7 +71,7 @@ class GooglePlayAPI(object):
         #         }
 
     @staticmethod
-    def read_config(config_file='config.py'):
+    def read_config(config_file="config.py"):
         """
         Read the repository config
 
@@ -88,8 +88,8 @@ class GooglePlayAPI(object):
         config = dict()
 
         logging.debug("Reading %s" % config_file)
-        with io.open("config.py", "rb") as f:
-            code = compile(f.read(), "config.py", 'exec')
+        with io.open(config_file, "rb") as f:
+            code = compile(f.read(), "config.py", "exec")
             exec(code, None, config)
 
         return config
