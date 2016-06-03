@@ -32,8 +32,8 @@ if (len(sys.argv) >= 4):
 config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
-api = GooglePlayAPI(config['ANDROID_ID'])
-api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'])
+api = GooglePlayAPI(config)
+api.login()
 
 try:
     message = api.search(request, nb_res, offset)

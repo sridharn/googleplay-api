@@ -22,8 +22,8 @@ from googleplay_api.googleplay import GooglePlayAPI
 config = GooglePlayAPI.read_config()
 
 # connect to GooglePlayStore
-api = GooglePlayAPI(config['ANDROID_ID'])
-api.login(config['GOOGLE_LOGIN'], config['GOOGLE_PASSWORD'], config['AUTH_TOKEN'])
+api = GooglePlayAPI(config)
+api.login()
 response = api.browse()
 
 print("ID", "Name", sep=config['SEPARATOR'])
