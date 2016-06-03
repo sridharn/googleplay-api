@@ -7,16 +7,16 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.1.0',
+    version='1.0.0',
 
     description='An unofficial Python API that let you search, browse and download Android apps from Google Play (formerly Android Market).',
 
     # The project's main homepage.
-    url='https://github.com/NeroBurner/googleplay-api',
+    url='https://github.com/Grazfather/googleplay-api',
 
     # Author details
-    author='NeroBurner',
-    author_email='pyro4hell@gmail.com',
+    author='Grazfather',
+    author_email='grazfather@gmail.com',
 
     # Choose your license
     license='BSD',
